@@ -10,7 +10,9 @@ const client = new cassandra.Client({
   });
   
   client.connect(function (err) {
-    assert.ifError(err);
+    if(err){
+        console.log(err);
+    }
   });
 
 //routers
