@@ -1,0 +1,23 @@
+const express = require('express');
+const app = express();
+const path = require('path');
+const port = 3000;
+
+
+//routers
+var deposit = require('./routers/deposit.js');
+var retrieve = require('./routers/retrieve.js');
+//api endpoint
+app.use('/deposit',deposit);
+app.use('/retrieve',retrieve);
+
+app.get('/',function(req,res){
+    res.send('INDEX page');
+    //res.sendFile(path.join(__dirname+'/html/index.html'));
+})
+
+
+
+app.listen(port,'0.0.0.0', () => {
+    return console.log(`App listening on port ${port}!`);
+})
