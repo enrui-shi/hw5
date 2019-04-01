@@ -2,7 +2,16 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const port = 3000;
+const cassandra = require('cassandra-driver');
 
+const client = new cassandra.Client({ 
+    contactPoints: ['127.0.0.1:9042'],
+    keyspace: 'hw5'
+  });
+  
+  client.connect(function (err) {
+    assert.ifError(err);
+  });
 
 //routers
 var deposit = require('./routers/deposit.js');
