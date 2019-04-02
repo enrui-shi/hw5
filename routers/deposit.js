@@ -12,15 +12,16 @@ router.post('/',jsonParser,function(req,res){
     data = req.body;
     console.log('filename:',data.filename);
     console.log('content:');
-    console.log(data.contnets);
+    console.log(data.contents);
     var client = req.app.locals.client;
     const query = 'INSERT INTO imgs (filename,contents) VALUES (?, ?)';
     const params = ['a','b'];
     client.execute(query, params, { prepare: true }, function (err) {
             if(err){
                 console.log(err);
+                res.json({status:"error"});
             }else{
-
+                res.json({status:"OK"});
             }
             //Inserted in the cluster
     });
