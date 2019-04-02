@@ -3,14 +3,17 @@ var bodyParser = require('body-parser');
 var router = express.Router();
 var path = require('path');
 var request = require('request');
+var multer = require('multer');
+var upload = multer();
 // create application/json parser
 var jsonParser = bodyParser.json()
 // create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
-
-router.post('/',jsonParser,function(req,res){
+router.use(upload.array()); 
+router.use(express.static('public'));
+router.post('/',function(req,res){
     data = req.body;
-    console.log(req)
+    console.log(req.body)
     console.log('filename:',data.filename);
     console.log('content:');
     console.log(data.contents);
