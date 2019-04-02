@@ -3,15 +3,25 @@ var bodyParser = require('body-parser');
 var router = express.Router();
 var path = require('path');
 var request = require('request');
-// create application/json parser
-var jsonParser = bodyParser.json()
-// create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
+var fs = require('fs');
+var multer = require('multer');
+var upload = multer({ dest: 'uploads/' })
 
-router.get('/',jsonParser,function(req,res){
-    data = req.body;
-    console.log(data);
+router.get('/',upload.none(),function(req,res){
+    filename = req.query.filename;
+    console.log('filename:',filename);
     var client = req.app.locals.client;
+    const query = 'SELECT contents FROM imgs WHERE filename = ?';
+    client.execute(query, [filename], { prepare: true }, function(err,result){
+        if(err){
+            console.log(err);
+            res.json({"status":'error'});
+
+        }else{
+            res.send(result.first());
+        }
+    });
+    
 });
 
 module.exports = router;
