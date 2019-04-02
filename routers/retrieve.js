@@ -19,7 +19,7 @@ router.get('/',upload.none(),function(req,res){
 
         }else{
             console.log(result.first());
-            res.set('Content-Type', 'image');
+            res.set('Content-Type', 'image'+filename.split('.')[1]);
             res.send(result.first().contents);
         }
     });
