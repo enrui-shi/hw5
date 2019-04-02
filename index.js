@@ -14,6 +14,8 @@ const client = new cassandra.Client({
     if(err){
         console.log(err);
     }
+    console.log("connet to local cassandra-driver")
+    app.locals.client = client;
   });
 
 //routers
