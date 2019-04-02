@@ -10,6 +10,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 router.post('/',jsonParser,function(req,res){
     data = req.body;
+    var client = req.app.locals.client;
 });
 
 module.exports = router;
