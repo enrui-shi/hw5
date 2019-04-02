@@ -8,8 +8,9 @@ var jsonParser = bodyParser.json()
 // create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-router.post('/',jsonParser,function(req,res){
+router.get('/',jsonParser,function(req,res){
     data = req.body;
+    console.log(data);
     var client = req.app.locals.client;
 });
 
