@@ -10,6 +10,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 router.post('/',jsonParser,function(req,res){
     data = req.body;
+    console.log(req)
     console.log('filename:',data.filename);
     console.log('content:');
     console.log(data.contents);
