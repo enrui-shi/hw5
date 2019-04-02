@@ -18,6 +18,8 @@ router.get('/',upload.none(),function(req,res){
             res.json({"status":'error'});
 
         }else{
+            console.log(result.first());
+            res.type('image')
             res.send(result.first());
         }
     });
