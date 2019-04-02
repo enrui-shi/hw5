@@ -14,7 +14,7 @@ router.post('/',upload.single('contents'),function(req,res){
     console.log(req.file);
     var client = req.app.locals.client;
     
-    fs.readFile(req.file.path, 'utf8', function(err, data) {  
+    fs.readFile(req.file.path, function(err, data) {  
         if(err){
             console.log(err)
             res.json({"status":'error'})
