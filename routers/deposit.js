@@ -9,7 +9,8 @@ var upload = multer({ dest: 'uploads/' })
 
 router.post('/',upload.single('contents'),function(req,res){
     data = req.body;
-    console.log('filename:',data.filename);
+    var filename  = data.filename
+    console.log('filename:',filename);
     console.log('content:');
     console.log(req.file);
     var client = req.app.locals.client;
@@ -19,8 +20,8 @@ router.post('/',upload.single('contents'),function(req,res){
             console.log(err)
             res.json({"status":'error'})
         }else{
-            const query = 'INSERT INTO imgs (key,contents) VALUES (?, ?)';
-            const params = [data.filename, data];
+            var query = 'INSERT INTO imgs (filename, contents) VALUES (?, ?)';
+            var params = [filename, data];
             client.execute(query, params, { prepare: true }, function (err) {
                 if(err){
                     console.log(err);
