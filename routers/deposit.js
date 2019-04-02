@@ -13,21 +13,27 @@ router.post('/',upload.single('contents'),function(req,res){
     console.log('content:');
     console.log(req.file);
     var client = req.app.locals.client;
-    const query = 'INSERT INTO imgs (filename,contents) VALUES (?, ?)';
-    const params = [data.filename,'b'];
+    
     fs.readFile(req.file.path, 'utf8', function(err, data) {  
-        if (err) throw err;
-        console.log(data);
+        if(err){
+            console.log(err)
+            res.json({"status":'error'})
+        }else{
+            const query = 'INSERT INTO imgs (filename,contents) VALUES (?, ?)';
+            const params = [data.filename,data];
+            client.execute(query, params, { prepare: true }, function (err) {
+                if(err){
+                    console.log(err);
+                    res.json({status:"error"});
+                }else{
+                    res.json({status:"OK"});
+                }
+                //Inserted in the cluster
+        });
+        }
+
     });
-    client.execute(query, params, { prepare: true }, function (err) {
-            if(err){
-                console.log(err);
-                res.json({status:"error"});
-            }else{
-                res.json({status:"OK"});
-            }
-            //Inserted in the cluster
-    });
+    
 });
 
 module.exports = router;
