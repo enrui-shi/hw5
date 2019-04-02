@@ -4,9 +4,8 @@ var router = express.Router();
 var path = require('path');
 var request = require('request');
 var multer = require('multer');
-var upload = multer();
-router.use(upload.array()); 
-router.use(express.static('public'));
+var upload = multer({ dest: 'uploads/' })
+
 router.post('/',upload.single('contents'),function(req,res){
     data = req.body;
     console.log(req.body)
