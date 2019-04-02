@@ -19,8 +19,8 @@ router.post('/',upload.single('contents'),function(req,res){
             console.log(err)
             res.json({"status":'error'})
         }else{
-            const query = 'INSERT INTO imgs (filename,contents) VALUES (?, ?)';
-            const params = [data.filename,data];
+            const query = 'INSERT INTO imgs (key,contents) VALUES (?, ?)';
+            const params = [data.filename, data];
             client.execute(query, params, { prepare: true }, function (err) {
                 if(err){
                     console.log(err);
